@@ -18,7 +18,7 @@ export default function App() {
   }
 
   const handleMessage = (e) => {
-    socket.emit("new-message", { post: message, name: userName });
+    socket.emit("new-message", { post: message});
   };
   const closeRoom = (e) => {
     socket.disconnect(userName);

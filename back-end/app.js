@@ -9,33 +9,22 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   },
 });
-let users = [];
-var count = 0;
+
+//var roomId;
+
 var io_name = "62539df77fa391a794d0727f";
 //open socket connection
 io.on("connection", (socket) => {
-  //Socket means that new person come to join
-  //get his user name
-  socket.on("join server", (username) => {
-    const user = {
-      username,
-      id: socket.id,
-    };
-    users.push(user);
-    io.emit("new user", users);
-  });
-  //pass roomName from client side and return cb
+  
   socket.on("join-room", (roomId, cb) => {
-    // socket.join(roomId);
-    // cb(messages[roomName]);
-    //console.log("User Joined room ",roomId)
-    //socket.emit("new user joined to the room")
+     socket.join(roomId);
+    socket.emit("new user joined to the room")
   });
-  socket.on("new-message", function (data) {
+  socket.on("new-message",  (data,roomId)=> {
     //socket.emit("message",data)
     socket.to(roomId).emit("new-message", data);
   });
-  socket.on("disconnect", () => {
+  socket.on("disconnect", (username) => {
     io.emit(username, " has left the chat");
   });
 });
