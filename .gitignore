@@ -1,0 +1,11 @@
+node_modules/*
+package-lock.json
+
+
+chat-app/node_modules/*
+chat-app/package-lock.json
+
+back-end/node_modules/*
+back-end/package-lock.json
+
+
